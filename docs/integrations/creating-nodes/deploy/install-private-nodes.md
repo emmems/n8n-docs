@@ -15,7 +15,7 @@ If you're running n8n using Docker, you need to create a Docker image with the n
 	Your Dockerfile should look like this:
 
 	```Dockerfile
-	FROM node:16-alpine
+	FROM node:20-alpine
 
 	ARG N8N_VERSION
 
@@ -29,7 +29,6 @@ If you're running n8n using Docker, you need to create a Docker image with the n
 
 	# Install n8n and the packages it needs to build it correctly.
 	RUN apk --update add --virtual build-dependencies python3 build-base ca-certificates && \
-		npm config set python "$(which python3)" && \
 		npm_config_user=root npm install -g full-icu n8n@${N8N_VERSION} && \
 		apk del build-dependencies \
 		&& rm -rf /root /tmp/* /var/cache/apk/* && mkdir /root;
@@ -61,7 +60,7 @@ If you're running n8n using Docker, you need to create a Docker image with the n
 
 	```Dockerfile
 	# Replace <n8n-version-number> with the n8n release version number. 
-	# For example, N8N_VERSION=0.177.0
+	# For example, N8N_VERSION=1.11.2
 	docker build --build-arg N8N_VERSION=<n8n-version-number> --tag=customizedn8n .
 	```
 
